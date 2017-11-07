@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # https://github.com/jemmelot/Heuristieken.git
 
 import csv
@@ -11,13 +12,13 @@ Width, Height = 22, 22;
 matrix = [[0 for x in range(Width)] for y in range(Height)]
 
 # read stations from csv file	
-with open('StationsHolland.csv', 'rb') as csvfile:
+with open('StationsHolland.csv', 'r') as csvfile:
 	reader = csv.reader(csvfile)
 	for row in reader:
 		stations.append(row[0])
 
 # read connections from csv file
-with open('ConnectiesHolland.csv', 'rb') as csvfile:
+with open('ConnectiesHolland.csv', 'r') as csvfile:
 	reader = csv.reader(csvfile)
 	for row in reader:
 		connections.append(row)
@@ -36,11 +37,11 @@ for station in stations:
 
 # print matrix
 for i in range(len(matrix)):
-	print matrix[i]
+	print(matrix[i])
 
 # show all possible direct connection and their time			
 for i in range(len(matrix)):	
 	for j in range(len(matrix)):
 		if matrix[i][j] != 0:
-			print stations[i] + ' ' + stations[j] + ' = ' + matrix[i][j]
+			print(stations[i] + ' ' + stations[j] + ' = ' + matrix[i][j])
 	
