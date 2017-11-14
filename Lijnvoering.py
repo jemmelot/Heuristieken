@@ -2,45 +2,54 @@
 # https://github.com/jemmelot/Heuristieken.git
 
 import numpy as np
-from RailNL.py import initial_array, trains_array
 
 class Lijnvoering():
     """Implements critical connections and the corresponding travel time."""
 
-    def __init__(self):
-        """Initialize class Lijnvoering."""
+    def critical(self, routes, critical):
+        """Determines what percentage of connections are critical"""
 
-        # initialize an array to be filled with every critical station
-        critical = []
-        with open('StationsHolland.csv', 'r') as lines:
-            for line in lines:
-                # check whether connection is critical
-                if "Kritiek" in line:
-                    critical.append(line)
+        # initialize amount of critical and total connections within the given route
+        crit  = 0
+        total = 0
 
-        self.critical = critical
+        # for every of the seven calculated routes,
+        # check how many of the connections are critical
+        for route in routes:
+            for i in range(len(route)):
+                if route[i] in critical:
+                    crit  += 1
+                total += 1
 
-        # hardcode an array of every station with only one connection
-        end_of_the_line = []
-        self.endoftheline = end_of_the_line
+        percentage = crit / total
 
-    def trains(self):
-        """Calculate how often mutiple trains pass the same connection."""
+        return percentage
+
+
+    def trains(self, trains_array):
+        """Calculates how often mutiple trains pass the same connection."""
 
         # fetch array displaying total amount of trains per connection,
-        # and count how many indices are greater than 1
+        # and count how often connections are visited more than once
         array = np.array(trains_array)
-        amount = np.count_nonzero(array > 1)
+        amount2 = np.count_nonzero(array == 2)
+        amount3 = np.count_nonzero(array == 3)
+        amount4 = np.count_nonzero(array == 4)
+        amount5 = np.count_nonzero(array >  4)
+
+        amount = amount2 * 1 + amount3 * 2 + amount4 * 3 + amount5 * 5
 
         return amount
 
-    def commute(self):
+
+    def commute(self, initial_array):
         """Calculates the total travel time of each route."""
 
-        #initialize travel time
+        # initialize travel time
         time = 0
 
-        #TODO
+        # calculate total travel time of all 7 routes
+        for i in range(7):
+            time += initial_array[i][0]
 
         return time
-

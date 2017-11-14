@@ -4,16 +4,14 @@
 class Score():
     """Calculates score of results."""
 
-    def __init__(self, critical, trains, commute):
+    def score(self, crit, trains, commute):
         """Calculates total score."""
 
-        p   = critical
-        t = trains
+        p   = crit
+        t   = trains
         min = commute
 
         # arbitrary formula to calculate score
         score = p*10000 - (t*20 + min/100000)
 
         return score
-
-
