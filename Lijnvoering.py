@@ -6,22 +6,11 @@ import numpy as np
 class Lijnvoering():
     """Implements critical connections and the corresponding travel time."""
 
-    def critical(self, routes, critical):
+    def critical(self, all_criticals, missed_criticals):
         """Determines what percentage of connections are critical"""
 
-        # initialize amount of critical and total connections within the given route
-        crit  = 0
-        total = 0
-
-        # for every of the seven calculated routes,
-        # check how many of the connections are critical
-        for route in routes:
-            for i in range(len(route)):
-                if route[i] in critical:
-                    crit  += 1
-                total += 1
-
-        percentage = crit / total
+		# calculate percentage of hit critical connections
+        percentage = ((all_criticals - missed_criticals)/all_criticals)
 
         return percentage
 
