@@ -3,9 +3,10 @@
 
 import numpy as np
 import csv
-from Lijnvoering import Lijnvoering
-from Score       import score
-from Graph       import graph
+from Lijnvoering 	import Lijnvoering
+from Score       	import score
+from Graph       	import graph
+from Random_search	import random_route
 import matplotlib.pyplot as plt
 
 # list of all stations
@@ -54,7 +55,7 @@ end_of_the_line = ["Den Helder", "Dordrecht"]
 
 starting_stations = critical_stations + end_of_the_line
 
-# instantiate numpy array
+# instantiate numpy array to store all connections and travel times
 main_array = np.zeros((22, 22))
 
 # fill in numpy array accordingly
@@ -70,51 +71,33 @@ for station in stations:
             main_array[row][column] = connection[2]
 
 '''
-#print csv array
-print(main_array)
-
-# show all possible direct connection and their time			
-for i in range(len(main_array)):	
-	for j in range(len(main_array)):
-		if main_array[i][j] != 0:
-			print(stations[i] + ' ' + stations[j] + ' = ',end='')
-			print(int(main_array[i][j]))
+Below are the function calls to the different algorithms
 '''
+# random search 
+visited_connections, route = random_route(main_array, starting_stations, stations)
 
-# the seven calculated routes will be stored in this variable
-route = [[] for i in range(7)]
+# breadth first
+# TODO
+
+# hill-climber
+# TODO
+
+# greedy
+# TODO
+
 for row in route:
-    print(row)
-
-# instantiate numpy array to keep track of how often every station is visited
-visited_connections = np.zeros((22, 22))
-
-# use algorithm
-for i in range(7):
-    starting_station = np.random.choice(starting_stations)
-    if any(i in s for s in stations):
-        i = stations.index(i)
-
-    # breadth_first
-    route               = breadth-first_route(main_array, starting_station, route)
-    visited_connections = breadth-first_t(main_array, starting_station, visited_connections)
-
-    # hill-climber
-
-
-    # greedy
-
-
+    print(row)	
 
 object = Lijnvoering()
 
+# score function parameters
 p	= object.p(main_array, visited_connections, stations, critical_stations)
 t   = object.t(visited_connections)
 min = object.min(route)
 
 final_score = score(p, t, min)
 
-print(percentage)
+print(p)
 print(final_score)
 
 # create and print graph
