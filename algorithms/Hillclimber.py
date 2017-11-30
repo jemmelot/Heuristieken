@@ -14,7 +14,7 @@ def hillclimber(max_evaluations):
 
     # instantiate best set of routes
     best = route
-    previous_best_score = score(best) #TODO: aanroepen scorefunctie
+    previous_best_score = score(best) # TODO: aanroepen scorefunctie
     num_evaluations = 1
 
     def move_operator(route):
@@ -44,7 +44,7 @@ def hillclimber(max_evaluations):
         for k in range(0, j):
             new_route.append(route[i][k])
 
-        #re-calculate total time and visited connections
+        # re-calculate total time and visited connections
         total_time = 0
         visited_connections = 0
         for l in range(1, j):
@@ -58,7 +58,7 @@ def hillclimber(max_evaluations):
         return new_route + fillroute(starting_station, total_time), visited_connections
 
 
-    #fills in an incomplete route, works like random_search
+    # fills in an incomplete route, works like random_search
     def fillroute(starting_station, total_time):
         x = np.where(main_array[starting_station, :] > 0)
         r = np.random.choice(x[0])
@@ -74,7 +74,7 @@ def hillclimber(max_evaluations):
             fillroute(r, total_time)
 
 
-    #analyze result changed route
+    # analyze result changed route
     while num_evaluations < max_evaluations:
         move_made = False
         for next in move_operator(best):
@@ -90,7 +90,7 @@ def hillclimber(max_evaluations):
                 move_made = True
                 break
 
-        #TODO: simulated annealing
+        # TODO: simulated annealing
         difference = new_best_score - previous_best_score
         if difference < 0 or e^(-difference/num_evaluations) > random(0,1):
             previous_best_score = new_best_score
