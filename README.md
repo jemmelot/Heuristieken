@@ -1,9 +1,81 @@
-# Heuristieken
+# Heuristieken case RailNL
 
-De Git repository is bijgewerkt en bevat nu alle benodigde files om de python files meteen te kunnen runnen vanuit één map. Meer delen van het programma zijn in functies gestopt en verdeeld over meerdere bestanden, om zo makkelijk aan te roepen te zijn op verschillende plekken. Naast de main file was er voorheen al een bestand wat de verschillende waardes voor de score functie berekent, evenals een bestand om de score daadwerkelijk te berekenen. Nu is er tevens een ‘Graph’ bestand, om de berekende trajecten in een figuur te kunnen plotten. Ook heeft elk algoritme een eigen bestand, dat geïmporteerd en aangeroepen kan worden in de main file.
+In dit project wordt de optimale lijnvoering voor het Nederlandse spoornetwerk bepaald. De lijnvoering bestaat uit een vast aantal trajecten, waarbij over elk traject één trein rijdt. Er wordt gebruikgemaakt van de algoritmen Breadth-First, Hillclimber en Greedy om de oplossing voor dit probleem te optimaliseren. Daarnaast wordt een zelf geïmplementeerde random-search toegepast, die willekeurige opties als resultaat geeft. De algoritmen worden met elkaar vergeleken, en op basis van een scorefunctie en de runtime wordt bepaald welk algoritme het meest geschikt is en wordt de beste oplossing voor dit probleem benaderd.
 
-Zoals bij Infrastructuur is genoemd maken we gebruik van meerdere files om routes te berekenen, visualiseren en scoren. Al deze functies worden in de main file geïmporteerd  en aangeroepen wanneer nodig. In de main file worden alle stations en verbindingen vanuit csv bestanden geladen en samengevoegd in een numpy array. In deze array stelt elke rij een station voor, met daarin positieve waardes op de indexen van de stations waarmee het direct verbonden is. Deze positieve waardes betreffen de reistijden tussen de twee stations. Op deze manier staat het gehele trein netwerk in een snel af te lezen symmetrische structuur. De namen van alle stations staan in een aparte list, waarin de index van elk station hetzelfde is als in de numpy array.
+## Getting Started
 
-Voorheen hebben we succesvol lijnvoeringen kunnen maken door middel van een random algoritme, wat trajecten samenstelt door steeds vanuit een beginstation een willekeurig verbonden station aan het traject toe te voegen en bij het willekeurige station hetzelfde te doen. Deze week zijn we begonnen met het uitproberen van drie voorgestelde algoritmes: breadth-first, hill climber en greedy. We hebben op dit moment een eigen aanpassing aan de scorefunctie gemaakt, door de ‘t’ waarde te definiëren als het aantal keren dat een verbinding herbereden wordt binnen dezelfde lijnvoering, en meer strafpunten te geven hoe vaker dezelfde verbinding bereden wordt (zie eerste afbeelding bij ‘Datastructuur’. Dit betekent wel dat de optimale score lastiger te bepalen is.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-Zoals genoemd bij Experimentatie hebben we voorheen een random search algoritme gebruikt en zijn we nu aan het experimenteren met breadth-first, hill climber en greedy algoritmes. Door deze verschillende algoritmes aan dezelfde score functie te ondervinden hopen we er snel achter te komen welke het meest optimaal is om een goede lijnvoering te berekenen.
+### Prerequisites
+
+What things you need to install the software and how to install them
+
+```
+Give examples
+```
+
+### Installing
+
+A step by step series of examples that tell you have to get a development env running
+
+Say what the step will be
+
+```
+Give the example
+```
+
+And repeat
+
+```
+until finished
+```
+
+End with an example of getting some data out of the system or using it for a little demo
+
+## Running the tests
+
+Explain how to run the automated tests for this system
+
+### Break down into end to end tests
+
+Explain what these tests test and why
+
+```
+Give an example
+```
+
+### And coding style tests
+
+Explain what these tests test and why
+
+```
+Give an example
+```
+
+## Deployment
+
+Add additional notes about how to deploy this on a live system
+
+## Built With
+
+* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Maven](https://maven.apache.org/) - Dependency Management
+* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+
+## Authors
+
+* **Jesse Emmelot** - *Initial work* - [jemmelot](https://github.com/jemmelot)
+* **Siwa Sardjoemissier** - *Initial work* - [swcloud1](https://github.com/swcloud1)
+* **Bas Zwanenburg** - *Initial work* - [baszwanenburg](https://github.com/baszwanenburg)
+
+See also the list of [contributors](https://github.com/jemmelot/Heuristieken/graphs/contributors) who participated in this project.
+
+## Acknowledgments
+
+* Hat tip to anyone who's code was used
+* Inspiration
+* etc
