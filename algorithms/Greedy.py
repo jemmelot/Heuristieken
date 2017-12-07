@@ -48,7 +48,7 @@ connectiontimes = [int(connection[2]) for connection in connections]
 # m het totaal door alle treinen samen gereden aantal minuten in de lijnvoering.
 max_s = 10000.000
 max_t = -(7 * 20)
-max_m = -(120 / 10000)
+max_m = -(120)
 max_p = max_s + max_t + max_m
 
 
@@ -79,7 +79,8 @@ for station in stations:
 val_critic = max_p / len(criticalconnections)
 
 # calculate added value for duration of connection
-val_time = [float(x / 10000) for x in connectiontimes]
+# ECHTE VERSIE val_time = [float(x / 10000) for x in connectiontimes]
+val_time = [float(-x) for x in connectiontimes]
 
 # give a value to each connection
 for connection in connections:
@@ -95,24 +96,37 @@ for connection in connections:
 
 
 print(connections)
+print(val_time)
 
 # start greedy algorithm
 numbertracks = 7
 
 
-# get 7 random starting stations
+# get random starting stations
 trackstart = []
 max_lenght = 120
 
 for i in range(numbertracks):
-    trackstart.append(random.randrange(1, 28))
+    trackstart.append(random.randrange(0, 28))
 print(trackstart)
 
 routes = [[] for i in range(numbertracks)]
 
-#for track in trackstart:
-#    for connection in connections:
-#        routes.append(connection[0])
+# set starting stations in routes
+counter = 0
+for track in trackstart:
+    routes[counter] = connections[track][0]
+    counter += 1
+
+counter = 0
+for i in range(numbertracks):
+    scorelist = []
+    for connection in connections:
+        if routes[counter] == connection[0]:
+            print(connection[0])
+            scorelist.append(connection[5])
+            print(scorelist)
+    counter += 1
 
 print routes
 
