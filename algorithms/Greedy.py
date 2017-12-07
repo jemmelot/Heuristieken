@@ -180,8 +180,9 @@ for trail in range(trails):
 
     #    print('\n'.join(' '.join(map(str,sl)) for sl in connections))
 
-    print('\n'.join(' '.join(map(str,sl)) for sl in routes))
+#    print('\n'.join(' '.join(map(str,sl)) for sl in routes))
     #    print(routeended)
+    print("")
     print "Trial: ", trail
     with open('greedyscores.csv', 'r') as myfile:
         last_line = myfile.readlines()[-1]
