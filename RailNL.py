@@ -4,7 +4,9 @@
 import numpy as np
 import csv
 import sys
-sys.path.append('/classes/')
+sys.path.append('./classes/')
+sys.path.append('./functions/')
+sys.path.append('./algorithms/')
 from ScoreVariables import score_variables
 from Score       	import score
 from Visualization  import visualization
@@ -21,31 +23,31 @@ longitude = []
 latitude = []
 
 # read stations from csv file
-with open('/csv/StationsHolland.csv', 'r') as csvfile:
+with open('./csv/StationsHolland.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         stations.append(row[0])
 
 # read connections from csv file
-with open('/csv/ConnectiesHolland.csv', 'r') as csvfile:
+with open('./csv/ConnectiesHolland.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         connections.append(row)
 
 # read latitude from csv file
-with open('/csv/StationsHolland.csv', 'r') as csvfile:
+with open('./csv/StationsHolland.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         latitude.append(row[1])
 
 # read longitude from csv file
-with open('/csv/StationsHolland.csv', 'r') as csvfile:
+with open('./csv/StationsHolland.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         longitude.append(float(row[2]))
 
 # read critical stations from csv file
-with open('/csv/StationsHolland.csv', 'r') as csvfile:
+with open('./csv/StationsHolland.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         # check whether connection is critical
