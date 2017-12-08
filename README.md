@@ -19,5 +19,7 @@ Wanneer de gehele datastructuur goed verbonden is en de algoritmes volledig werk
 See also the list of [contributors](https://github.com/jemmelot/Heuristieken/graphs/contributors) who participated in this project.
 
 ## Acknowledgments
-TODO
+Begeleiding:
+- Bas Terwijn
+- Maarten van der Sande
 
