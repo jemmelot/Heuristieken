@@ -7,10 +7,11 @@ import sys
 sys.path.append('./classes/')
 sys.path.append('./functions/')
 sys.path.append('./algorithms/')
-from ScoreVariables import score_variables
-from Score       	import score
+#from ScoreVariables import score_variables
+from Score import score
 from Visualization  import visualization
 from Random_search	import random_route
+from Hillclimber    import hillclimber
 import matplotlib.pyplot as plt
 
 # list of all stations
@@ -74,35 +75,33 @@ for station in stations:
             column = stations.index(connection[0])
             main_array[row][column] = connection[2]
 
-'''
-Below are the function calls to the different algorithms
+
+evaluations = 10000
+
 '''
 # random search 
-visited_connections, route = random_route(main_array, starting_stations, stations)
+i = 1
+while i < evaluations:
+    visited_connections, route = random_route(main_array, starting_stations, stations)
+    random_score = score(visited_connections, route)
+    #csvwrite(random_score)
+    i += 1
+'''
 
 # breadth first
 # TODO
 
 # hill-climber
-# TODO
+hc_score = hillclimber(evaluations)
 
 # greedy
 # TODO
 
-for row in route:
-    print(row)	
-
-object = score_variables()
-
-# score function parameters
-p	= object.p(main_array, visited_connections, stations, critical_stations)
-t   = object.t(visited_connections)
-min = object.min(route)
-
-final_score = score(p, t, min)
-
-print(p)
-print(final_score)
+# print the highest score for every algorithm
+#print("Random search:", random_score)
+#print("Breadth-first:", bf_score)
+print("Hillclimber:", hc_score)
+#print("Greedy:", greedy_score)
 
 # create and print visualization
 visualization(longitude, latitude, stations, route, critical_stations, main_array, final_score)
