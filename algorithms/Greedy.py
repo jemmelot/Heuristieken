@@ -6,45 +6,44 @@ import csv
 import random
 import sys
 sys.path.append('../classes/')
+from loadData import loadData
 from ScoreVariables import score_variables
-#from Score       import Score
-#from Graph       import Graph
-#import matplotlib.pyplot as plt
 
 userinputamount = input("How many Trains: ")
 response = input("How many tests would you like to run: ")
 trails = int(response)
 
 for trail in range(trails):
-    # list of all stations
-    stations = []
-    connections = []
-    critical = []
-    criticalconnections = []
-
-    # list of coordinates
-    latitude = []
-    longitude = []
+#    # list of all stations
+#    stations = []
+#    connections = []
+#    critical = []
+#    criticalconnections = []
+#
+#    # list of coordinates
+#    latitude = []
+#    longitude = []
+    x = loadData()
 
     # import data from Stations csv file
     with open('../csv/StationsHolland.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
-            stations.append(row[0])
-            latitude.append(row[1])
-            longitude.append(row[2])
+            x.stations.append(row[0])
+            x.latitude.append(row[1])
+            x.longitude.append(row[2])
             # create list of critical stations
             if "Kritiek" in row:
-                critical.append(row[0])
+                x.critical.append(row[0])
 
 
     # import data from Connections csv file
     with open('../csv/ConnectiesHolland.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
-            connections.append(row)
+            x.connections.append(row)
 
-    connectiontimes = [int(connection[2]) for connection in connections]
+    connectiontimes = [int(connection[2]) for connection in x.connections]
 
 
     # Scorefunctie: S = p*10000 - (t*20 + m/10000)
@@ -61,42 +60,42 @@ for trail in range(trails):
     array = np.zeros((22, 22))
 
     # fill in numpy array accordingly
-    for station in stations:
-        for connection in connections:
+    for station in x.stations:
+        for connection in x.connections:
             if connection[0] == station:
-                for item in critical:
-                    if connection[0] in critical:
-                        if connection not in criticalconnections:
-                            criticalconnections.append(connection)
-                row = stations.index(station)
-                column = stations.index(connection[1])
+                for item in x.critical:
+                    if connection[0] in x.critical:
+                        if connection not in x.criticalconnections:
+                            x.criticalconnections.append(connection)
+                row = x.stations.index(station)
+                column = x.stations.index(connection[1])
                 array[row][column] = connection[2]
             if connection[1] == station:
-                if connection[1] in critical:
-                    if connection not in criticalconnections:
-                        criticalconnections.append(connection)
-                row = stations.index(station)
-                column = stations.index(connection[0])
+                if connection[1] in x.critical:
+                    if connection not in x.criticalconnections:
+                        x.criticalconnections.append(connection)
+                row = x.stations.index(station)
+                column = x.stations.index(connection[0])
                 array[row][column] = connection[2]
 
 
     # calculate added value for station being critical
-    val_critic = max_p / len(criticalconnections)
+    val_critic = max_p / len(x.criticalconnections)
 
     # calculate added value for duration of connection
     # ECHTE VERSIE val_time = [float(x / 10000) for x in connectiontimes]
-    val_time = [float(-x) for x in connectiontimes]
+    val_time = [float(-z) for z in connectiontimes]
 
 
     #for trail in range(100):
     # give a value to each connection
-    for connection in connections:
-        if connection[0] in critical or connection[1] in critical:
+    for connection in x.connections:
+        if connection[0] in x.critical or connection[1] in x.critical:
             connection.append(val_critic)
         else:
             connection.append(0)
-        connection.append(x)
-        if connection[4] == x:
+        connection.append("y")
+        if connection[4] == "y":
             connection[4] = float(connection[2])
         connection.append(int(connection[3]) - connection[4])
 
@@ -123,7 +122,7 @@ for trail in range(trails):
     counter = 0
     for track in trackstart:
         routes[counter].append(0)
-        routes[counter].append(connections[track][0])
+        routes[counter].append(x.connections[track][0])
         counter += 1
 
     #    print(routes)
@@ -140,7 +139,7 @@ for trail in range(trails):
             scorelist = []
             time = 0
             if routeended[i] == 0:
-                for connection in connections:
+                for connection in x.connections:
                     if routes[counterrow][countercollum] == connection[0]:
                         scorelist.append(connection[5])
     #                        print(connection[0])
@@ -150,7 +149,7 @@ for trail in range(trails):
     #                print(scorelist)
                 bestnext = max(scorelist)
     #                print(bestnext)
-                for connection in connections:
+                for connection in x.connections:
                     if routes[counterrow][countercollum] == connection[0]:
                         if connection[5] == bestnext:
                             time += connection[4]
