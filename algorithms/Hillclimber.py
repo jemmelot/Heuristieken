@@ -131,7 +131,7 @@ def hillclimber(max_evaluations):
         # calculate score of the randomly generated routes and arbitrarily set the temperature
         current_score = score(connections, solution)
         T = 1.0
-        alpha = 0.999
+        alpha = 0.995
         num_evaluations = 0
         #annealing_iterations = 50
         while max_evaluations > num_evaluations:
