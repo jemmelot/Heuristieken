@@ -103,6 +103,22 @@ final_score = score(p, t, min)
 
 print(p)
 print(final_score)
+print(latitude)
 
 # create and print visualization
 visualization(longitude, latitude, stations, route, critical_stations, main_array, final_score)
+## create graph
+#fig = plt.figure()
+#ax1 = fig.add_subplot(1,1,1, adjustable='box', aspect=0.07)
+#plt.axis('off')
+#ax1.plot(longitude, latitude, 'ro')
+#for station in range(len(stations)):
+#    ax1.text(longitude[station], latitude[station], ' ' + stations[station], fontsize=10)
+#for i in range(len(main_array)):
+#    for j in range(len(main_array)):
+#        if main_array[i][j] != 0:
+#            x1, y1 = [longitude[i], longitude[j]], [latitude[i], latitude[j]]
+#            #ax1.plot(x1, y1, marker = 'o', color='black', linestyle='dashed')
+#            ax1.plot(x1, y1, marker = 'o')
+#plt.show()
+

@@ -14,7 +14,7 @@ def visualization(longitude, latitude, stations, route, critical, array, final_s
     '''Create visualization.'''
 
     fig = plt.figure()
-    ax1 = fig.add_subplot(1,1,1, adjustable='box', aspect=0.07)
+    ax1 = fig.add_subplot(1,1,1, adjustable='box', aspect=1)
     plt.axis('off')
     ax1.plot(longitude, latitude, 'ro')
     for station in range(len(stations)):
@@ -41,7 +41,6 @@ def visualization(longitude, latitude, stations, route, critical, array, final_s
                     ax1.plot(x1, y1, marker = 'o', color = 'green', linestyle='dashed')
                 if row[i] in critical:
                     ax1.plot(x1, y1, marker = 'o', color = 'green')
-
     ax1.legend(['Score: {0:.0f}'.format(final_score)], loc=2, bbox_to_anchor=(-0.5, 1))
     plt.show()
 

@@ -17,8 +17,24 @@ for trail in range(trails):
 
     x = loadData()
     x.loadDataHolland()
-    x.createMatrix()
     
+#    # import data from Stations csv file
+#    with open('../csv/StationsHolland.csv', 'r') as csvfile:
+#        reader = csv.reader(csvfile)
+#        for row in reader:
+#            x.stations.append(row[0])
+#            x.latitude.append(row[1])
+#            x.longitude.append(row[2])
+#            # create list of critical stations
+#            if "Kritiek" in row:
+#                x.critical.append(row[0])
+#
+#
+#    # import data from Connections csv file
+#    with open('../csv/ConnectiesHolland.csv', 'r') as csvfile:
+#        reader = csv.reader(csvfile)
+#        for row in reader:
+#            x.connections.append(row)
 
     connectiontimes = [int(connection[2]) for connection in x.connections]
 
@@ -33,9 +49,29 @@ for trail in range(trails):
     max_p = max_s + max_t + max_m
 
 
+    # instantiate numpy array
+    array = np.zeros((22, 22))
+
+    # fill in numpy array accordingly
+    for station in x.stations:
+        for connection in x.connections:
+            if connection[0] == station:
+                for item in x.critical:
+                    if connection[0] in x.critical:
+                        if connection not in x.criticalconnections:
+                            x.criticalconnections.append(connection)
+                row = x.stations.index(station)
+                column = x.stations.index(connection[1])
+                array[row][column] = connection[2]
+            if connection[1] == station:
+                if connection[1] in x.critical:
+                    if connection not in x.criticalconnections:
+                        x.criticalconnections.append(connection)
+                row = x.stations.index(station)
+                column = x.stations.index(connection[0])
+                array[row][column] = connection[2]
 
 
-    
     # calculate added value for station being critical
     val_critic = max_p / len(x.criticalconnections)
 
