@@ -3,15 +3,11 @@
 
 import numpy as np
 import csv
-import sys
-sys.path.append('./classes/')
-sys.path.append('./functions/')
-sys.path.append('./algorithms/')
-#from ScoreVariables import score_variables
-from Score import score
-from Visualization  import visualization
+from Lijnvoering 	import Lijnvoering
+from Score       	import score
+from Graph       	import graph
 from Random_search	import random_route
-from Hillclimber    import hillclimber
+from Breadth_first	import breadth_first_route
 import matplotlib.pyplot as plt
 
 # list of all stations
@@ -24,31 +20,31 @@ longitude = []
 latitude = []
 
 # read stations from csv file
-with open('./csv/StationsHolland.csv', 'r') as csvfile:
+with open('StationsHolland.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         stations.append(row[0])
 
 # read connections from csv file
-with open('./csv/ConnectiesHolland.csv', 'r') as csvfile:
+with open('ConnectiesHolland.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         connections.append(row)
 
 # read latitude from csv file
-with open('./csv/StationsHolland.csv', 'r') as csvfile:
+with open('StationsHolland.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         latitude.append(row[1])
 
 # read longitude from csv file
-with open('./csv/StationsHolland.csv', 'r') as csvfile:
+with open('StationsHolland.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         longitude.append(float(row[2]))
 
 # read critical stations from csv file
-with open('./csv/StationsHolland.csv', 'r') as csvfile:
+with open('StationsHolland.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         # check whether connection is critical
@@ -75,33 +71,27 @@ for station in stations:
             column = stations.index(connection[0])
             main_array[row][column] = connection[2]
 
-
-evaluations = 10000
-
+'''
+Below are the function calls to the different algorithms
 '''
 # random search 
-i = 1
-while i < evaluations:
-    visited_connections, route = random_route(main_array, starting_stations, stations)
-    random_score = score(visited_connections, route)
-    #csvwrite(random_score)
-    i += 1
-'''
+#visited_connections, route = random_route(main_array, starting_stations, stations)
 
 # breadth first
-# TODO
+visited_connections, route, final_score = breadth_first_route(main_array, starting_stations, stations, critical_stations)
+#breadth_first_route(main_array, starting_stations, stations, critical_stations)
+#print(explored)
 
 # hill-climber
-hc_score = hillclimber(evaluations)
+# TODO
 
 # greedy
 # TODO
-
-<<<<<<< HEAD
+'''
 for row in route:
     print(row)	
 
-object = score_variables()
+object = Lijnvoering()
 
 # score function parameters
 p	= object.p(main_array, visited_connections, stations, critical_stations)
@@ -112,29 +102,6 @@ final_score = score(p, t, min)
 
 print(p)
 print(final_score)
-print(latitude)
-=======
-# print the highest score for every algorithm
-#print("Random search:", random_score)
-#print("Breadth-first:", bf_score)
-print("Hillclimber:", hc_score)
-#print("Greedy:", greedy_score)
->>>>>>> 58e5f7e33f3c56bd12b0cd3de3b2916f3b308d55
-
-# create and print visualization
-visualization(longitude, latitude, stations, route, critical_stations, main_array, final_score)
-## create graph
-#fig = plt.figure()
-#ax1 = fig.add_subplot(1,1,1, adjustable='box', aspect=0.07)
-#plt.axis('off')
-#ax1.plot(longitude, latitude, 'ro')
-#for station in range(len(stations)):
-#    ax1.text(longitude[station], latitude[station], ' ' + stations[station], fontsize=10)
-#for i in range(len(main_array)):
-#    for j in range(len(main_array)):
-#        if main_array[i][j] != 0:
-#            x1, y1 = [longitude[i], longitude[j]], [latitude[i], latitude[j]]
-#            #ax1.plot(x1, y1, marker = 'o', color='black', linestyle='dashed')
-#            ax1.plot(x1, y1, marker = 'o')
-#plt.show()
-
+'''
+# create and print graph
+graph(longitude, latitude, stations, route, critical_stations, main_array, final_score)
