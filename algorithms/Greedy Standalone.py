@@ -14,7 +14,6 @@ userinputamount = input("How many Trains: ")
 response = input("How many tests would you like to run: ")
 trails = int(response)
 
-#def greedy()
 for trail in range(trails):
 
     x = loadData()

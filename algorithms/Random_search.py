@@ -5,7 +5,7 @@ def random_route(main_array, starting_stations, stations):
 	route = [[] for i in range(7)]
 	
 	# instantiate numpy array to keep track of how often every station is visited
-	visited_connections = np.zeros((22, 22))
+	visited_connections = np.zeros((len(stations), len(stations)))
 	
 	# create seven random routes
 	for i in range(7):
