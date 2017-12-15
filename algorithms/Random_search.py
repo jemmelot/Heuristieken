@@ -5,7 +5,7 @@ import numpy as np
 sys.path.append('../classes/')
 from createnetwerk import createNetwerk
 
-def random_route(trains_amount):
+def random_route(array, starting_stations, stations, trains_amount):
 	"""Calculates routes at random."""
 
 	# the seven calculated routes will be stored in this variable
