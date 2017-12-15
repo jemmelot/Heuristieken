@@ -2,7 +2,7 @@
 # https://github.com/jemmelot/Heuristieken.git
 
 import numpy as np
-from RailNL import main_array, starting_stations, stations, critical_stations
+#from RailNL import main_array, starting_stations, stations, critical_stations
 
 def score(visited_connections, route):
     """Calculates total score."""

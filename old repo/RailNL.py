@@ -75,10 +75,10 @@ for station in stations:
 Below are the function calls to the different algorithms
 '''
 # random search 
-#visited_connections, route = random_route(main_array, starting_stations, stations)
+visited_connections, route = random_route(main_array, starting_stations, stations)
 
-# breadth first
-visited_connections, route, final_score = breadth_first_route(main_array, starting_stations, stations, critical_stations)
+## breadth first
+#visited_connections, route, final_score = breadth_first_route(main_array, starting_stations, stations, critical_stations)
 #breadth_first_route(main_array, starting_stations, stations, critical_stations)
 #print(explored)
 
@@ -104,4 +104,4 @@ print(p)
 print(final_score)
 '''
 # create and print graph
-graph(longitude, latitude, stations, route, critical_stations, main_array, final_score)
+graph(longitude, latitude, stations, route, critical_stations, main_array, 2000)
