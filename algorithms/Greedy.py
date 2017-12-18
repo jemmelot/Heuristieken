@@ -13,40 +13,20 @@ from createnetwerk import createNetwerk
 
 def greedy(connections, criticalconnections, critical, trainamount, trials):
 
-        
-#    connectiontimes = [float(connection[2]) for connection in connections]
-#
-#    # Scorefunctie: S = p*10000 - (t*20 + m/10000)
-#    # p het percentage van de bereden kritieke verbindingen
-#    # t het aantal treinen
-#    # m het totaal door alle treinen samen gereden aantal minuten in de lijnvoering.
-#    max_s = 10000.000
-#    max_t = -(7 * 20)
-#    max_m = -(120)
-#    max_p = max_s + max_t + max_m
-#
-#    # calculate added value for station being critical
-#    val_critic = max_p / len(criticalconnections)
-#
-#    # calculate added value for duration of connection
-#    val_time = [float(-z) for z in connectiontimes]
-#
-#    # give a value to each connection
-#    for connection in connections:
-#        if connection[0] in critical or connection[1] in critical:
-#            connection.append(val_critic)
-#        else:
-#            connection.append(0)
-#        connection.append("y")
-#        if connection[4] == "y":
-#            connection[4] = float(connection[2])
-#        connection.append(int(connection[3]) - connection[4])
+    with open('./csv/greedyscores.csv', 'w') as myfile:
+        wr = csv.writer(myfile,sys.stdout, lineterminator='\n')
+        wr.writerow([00000.00])
+    with open('./csv/greedyroute.csv', 'w') as myfile:
+        wr = csv.writer(myfile,sys.stdout, lineterminator='\n')
+        wr.writerow("00000")
+    with open('./csv/greedyalltrials.csv', 'w') as myfile:
+        wr = csv.writer(myfile,sys.stdout, lineterminator='\n')
+        wr.writerow([00000.00])
 
     # start greedy algorithm
     numbertracks = trainamount
     for trial in range(trials):
         copy_connections = copy.deepcopy(connections)
-        print(copy_connections)
         
         # get random starting stations
         trackstart = []
@@ -115,7 +95,7 @@ def greedy(connections, criticalconnections, critical, trainamount, trials):
         
         
         print("")
-        print ("Trial: ", trial)
+        print ("Greedy Trial: ", trial)
         with open('./csv/greedyscores.csv', 'r') as myfile:
             last_line = myfile.readlines()[-1]
             last_line = float(last_line.rstrip('\n'))

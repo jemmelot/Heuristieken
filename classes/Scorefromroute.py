@@ -20,8 +20,8 @@ class score_from_route():
         self.p = self.p()
         self.totalscore = self.totalscore(self.p, self.t, self.min)
 
-    def __str__(self):
-        return str(float(self.totalscore))
+    def __float__(self):
+        return self.totalscore
 
     def t(self):
         t = self.trainamount

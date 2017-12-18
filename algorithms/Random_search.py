@@ -3,18 +3,31 @@
 
 import numpy as np
 import sys
+import csv
+import os
 sys.path.append('../classes/')
 from createnetwerk import createNetwerk
+from ScoreIntegrated import score_integrated
 
-def random_route(array, starting_stations, stations, trains_amount, trials):
+def random_route(array, starting_stations, stations, critical_station, trains_amount, trials):
     """Calculates routes at random."""
 
+    with open('./csv/randomsearchscores.csv', 'w') as myfile:
+        wr = csv.writer(myfile,sys.stdout, lineterminator='\n')
+        wr.writerow([00000.00])
+    with open('./csv/randomsearchroute.csv', 'w') as myfile:
+        wr = csv.writer(myfile,sys.stdout, lineterminator='\n')
+        wr.writerow("00000")
+    with open('./csv/randomsearchalltrials.csv', 'w') as myfile:
+        wr = csv.writer(myfile,sys.stdout, lineterminator='\n')
+        wr.writerow([00000.00])
+        
     for trial in range(trials):
         # the seven calculated routes will be stored in this variable
         route = [[] for i in range(trains_amount)]
 
         # instantiate numpy array to keep track of how often every station is visited
-        visited_connections = np.zeros((22, 22))
+        visited_connections = np.zeros((len(stations), len(stations)))
 
         # create seven random routes
         for i in range(trains_amount):
@@ -39,5 +52,34 @@ def random_route(array, starting_stations, stations, trains_amount, trials):
                     routes(r, total_time)
 
             routes(starting_station, total_time)
+        
+        totalscore = float(score_integrated(array, visited_connections, stations, route, critical_station,trains_amount))
+        print("")
+        print ("Random Search Trial: ", trial)
+        with open('./csv/randomsearchscores.csv', 'r') as myfile:
+            last_line = myfile.readlines()[-1]
+            last_line = float(last_line.rstrip('\n'))
+
+        print ("Highest Score: ", last_line)
+        print ("Current Score: ", totalscore)
+
+        if totalscore > last_line:
+            print("Result: Succes")
+            with open('./csv/randomsearchscores.csv', 'a') as myfile:
+                wr = csv.writer(myfile,sys.stdout, lineterminator='\n')
+                wr.writerow([totalscore])
+            with open('./csv/randomsearchroute.csv', 'a') as myfile:
+                wr = csv.writer(myfile,sys.stdout, lineterminator='\n')
+                wr.writerow([route])
+        else:
+            print("Result: Fail")
+
+        with open('./csv/randomsearchalltrials.csv', 'a') as myfile:
+            wr = csv.writer(myfile,sys.stdout, lineterminator='\n')
+            wr.writerow([totalscore])
+
+        with open('./csv/randomsearchroute.csv', 'r') as myfile:
+            best_route = myfile.readlines()[-1]
+                    
     return route
 

@@ -142,7 +142,5 @@ def breadth_first_route(main_array, stations, critical_stations, trains, iterati
 								
 	for row in all_time_highest_route:
 		print(row)
-	
-	print(all_time_highest_visited)
 				
 	return all_time_highest_route, all_time_highest_score
