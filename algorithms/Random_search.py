@@ -2,6 +2,7 @@
 # https://github.com/jemmelot/Heuristieken.git
 
 import numpy as np
+import sys
 sys.path.append('../classes/')
 from createnetwerk import createNetwerk
 
