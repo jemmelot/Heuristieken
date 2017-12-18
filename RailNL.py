@@ -45,11 +45,10 @@ def main():
                 print(row)
     
     if Usage4 == 1:
-        for i in range(trials):
-            # breadth first
-            route, all_time_highest_score = breadth_first_route(x.array, x.starting_stations, x.stations, x.critical)
-            for row in route:
-                print(row)
+        # breadth first
+        route, all_time_highest_score = breadth_first_route(x.array, x.stations, x.critical, trainamount, trials)
+        for row in route:
+            print(row)
 
     if Usage6 == 1:
         # greedy
