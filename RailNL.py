@@ -12,10 +12,10 @@ sys.path.append('./functions/')
 from Histogram import histogram
 sys.path.append('./algorithms/')
 from Breadth_first import breadth_first_route
+from Hillclimber import hillclimber
 from Greedy import greedy
 from Visualization  import visualization
 from Random_search	import random_route
-#from Hillclimber    import hillclimber
 import matplotlib.pyplot as plt
 
 
@@ -70,6 +70,18 @@ def main():
             # create and print visualization
             visualization(x.longitude, x.latitude, x.stations, breadth_first_route2, x.critical, x.array, breath_first_score_from_route)
                     
+    if use_hillclimber
+        # hillclimber
+        hc_route, hc_score = hillclimber(x.array, x.stations, x.connections, trainamount, trials)
+        for row in hc_route:
+            print(row)
+        hc_score_from_route = float(score_from_route(hc_route, x.connections, trainamount))
+        print(hc_score_from_route)
+        if use_visualisatie:
+            histogram('Hillclimber','./csv/hillclimberalltrials.csv')
+            # create and print visualization
+            visualization(x.longitude, x.latitude, x.stations, hc_route, x.critical, x.array, hc_score_from_route)
+    
     if use_greedy:
         # greedy
         greedy_route = greedy(x.connections, x.criticalconnections, x.critical, trainamount, trials)
