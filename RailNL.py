@@ -31,7 +31,7 @@ def main():
 #    greedy = int(input("Greedy [No = 0; Yes = 1]: "))
 #    visualisatie = int(input("Plot [No = 0; Yes = 1]: "))
 
-    trainamount = 7
+    trainamount = 4
     trials = 1000
     map = 0
     use_random_search = 0
@@ -78,10 +78,9 @@ def main():
         hc_route, hc_score = hillclimber(x.array, x.stations, x.connections, trainamount, trials)
         for row in hc_route:
             print(row)
-        hc_score_from_route = float(score_from_route(hc_route, x.connections, trainamount))
-        print(hc_score_from_route)
+        print(hc_score)
         if use_visualisatie:
-            histogram('Hillclimber','./csv/hillclimberalltrials.csv')
+            histogram('Hillclimber','./csv/hc_scores.csv')
             # create and print visualization
             visualization(x.longitude, x.latitude, x.stations, hc_route, x.critical, x.array, hc_score_from_route)
     
