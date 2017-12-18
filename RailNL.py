@@ -32,11 +32,11 @@ def main():
 #    visualisatie = int(input("Plot [No = 0; Yes = 1]: "))
 
     trainamount = 7
-    trials = 10
+    trials = 1000
     map = 0
     use_random_search = 0
-    use_breadth_first = 1
-    use_hillclimber = 0
+    use_breadth_first = 0
+    use_hillclimber = 1
     use_greedy = 0
     use_visualisatie = 1
 

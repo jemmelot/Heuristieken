@@ -142,12 +142,11 @@ def hillclimber(main_array, stations, connections, trainamount, max_evaluations)
             T = T * alpha
             num_evaluations += 1
 
-            # after every 1000 simulated annealing iterations, write the score to csv
+            # after every n simulated annealing iterations, write the score to csv
             with open('./csv/hc_scores.csv', 'a') as myfile:
                 wr = csv.writer(myfile, sys.stdout, lineterminator='\n')
                 wr.writerow([current_score])
             print(num_evaluations, current_score)
-            print("")
         return current_solution, current_score
 
     rng_route = random_route(main_array, stations, trainamount)
