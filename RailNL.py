@@ -34,10 +34,10 @@ def main():
     trainamount = 7
     trials = 1
     map = 0
-    use_random_search = 1
+    use_random_search = 0
     use_breadth_first = 0
     use_hillclimber = 0
-    use_greedy = 0
+    use_greedy = 1
     use_visualisatie = 0
 
         
