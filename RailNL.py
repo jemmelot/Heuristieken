@@ -60,17 +60,17 @@ def main():
 
     if use_breadth_first:
         # breadth first
-        breadth_first_route2, breadth_first_score = breadth_first_route(x.array, x.starting_stations, x.stations, x.critical, trainamount, trials)
-        for row in route:
+        breadth_first_best_route, breadth_first_score = breadth_first_route(x.array, x.stations, x.critical, trainamount, trials)
+        for row in breadth_first_best_route:
             print(row)
-        bread_first_score_from_route = score_from_route(route, x.connections, trainamount)
+        bread_first_score_from_route = score_from_route(breadth_first_best_route, x.connections, trainamount)
         print(bread_first_score_from_route)
         if use_visualisatie:
-            histogram('BreadthFirst','./csv/breadthfirstalltrials.csv')
+            histogram('BreadthFirst','./csv/breadth_first_all_scores.csv')
             # create and print visualization
-            visualization(x.longitude, x.latitude, x.stations, breadth_first_route2, x.critical, x.array, breath_first_score_from_route)
+            visualization(x.longitude, x.latitude, x.stations, breadth_first_best_route, x.critical, x.array, breadth_first_score)
                     
-    if use_hillclimber
+    if use_hillclimber:
         # hillclimber
         hc_route, hc_score = hillclimber(x.array, x.stations, x.connections, trainamount, trials)
         for row in hc_route:

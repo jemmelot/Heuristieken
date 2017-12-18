@@ -3,21 +3,21 @@ import csv
 from ScoreIntegrated import score_integrated
 
 def breadth_first_route(main_array, stations, critical_stations, trains, iterations):
-'''
-This function determines a certain number of routes, each starting at a random station.
-The route are determined through a breadth first method. 
+	'''
+	This function determines a certain number of routes, each starting at a random station.
+	The route are determined through a breadth first method. 
 
-args: 
-- numpy array containing all connections and travel times
-- list containing all stations
-- list containing all critical stations
-- amount of routes to calculate
-- amount of iterations (different sets of random starting stations)
+	args: 
+	- numpy array containing all connections and travel times
+	- list containing all stations
+	- list containing all critical stations
+	- amount of routes to calculate
+	- amount of iterations (different sets of random starting stations)
 
-type: function
+	type: function
 
-returns: best scoring set of routes after all iterations, also the score itself
-'''	
+	returns: best scoring set of routes after all iterations, also the score itself
+	'''	
 	# store the 'tree' of every station in a list
 	explored = [[] for i in range(len(stations))]
 
