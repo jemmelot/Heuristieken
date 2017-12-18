@@ -43,8 +43,10 @@ def main():
         
     if map == 0:
         x = createNetwerk('./csv/StationsHolland.csv', './csv/ConnectiesHolland.csv')
+        time_limit = 120
     if map ==  1:
         x = createNetwerk('./csv/StationsNationaal.csv', './csv/ConnectiesNationaal.csv')
+        time_limit = 180
 
     if use_random_search:
         # random search
@@ -60,11 +62,12 @@ def main():
 
     if use_breadth_first:
         # breadth first
-        breadth_first_best_route, breadth_first_score = breadth_first_route(x.array, x.stations, x.critical, trainamount, trials)
+        breadth_first_best_route, breadth_first_score = breadth_first_route(x.array, x.stations, x.critical, trainamount, trials, time_limit)
         for row in breadth_first_best_route:
             print(row)
-        bread_first_score_from_route = score_from_route(breadth_first_best_route, x.connections, trainamount)
-        print(bread_first_score_from_route)
+        #bread_first_score_from_route = score_from_route(breadth_first_best_route, x.connections, trainamount)
+        #print(bread_first_score_from_route)
+        print(breadth_first_score)
         if use_visualisatie:
             histogram('BreadthFirst','./csv/breadth_first_all_scores.csv')
             # create and print visualization

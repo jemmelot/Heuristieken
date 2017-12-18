@@ -2,7 +2,7 @@ import numpy as np
 import csv
 from ScoreIntegrated import score_integrated
 
-def breadth_first_route(main_array, stations, critical_stations, trains, iterations):
+def breadth_first_route(main_array, stations, critical_stations, trains, iterations, time_limit):
 	'''
 	This function determines a certain number of routes, each starting at a random station.
 	The route are determined through a breadth first method. 
@@ -141,7 +141,7 @@ def breadth_first_route(main_array, stations, critical_stations, trains, iterati
 							# determine the travel time between two stations
 							time = int(main_array[stations.index(possibility[possibility.index(station) - 1])][stations.index(station)])
 							
-							if (total_time + time) > 120:
+							if (total_time + time) > time_limit:
 								break
 							
 							# if allowed by time, add station and its travel time to a route
