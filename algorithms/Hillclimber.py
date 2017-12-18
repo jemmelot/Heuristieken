@@ -9,7 +9,7 @@ import numpy as np
 import math
 from random import randint
 from random import random
-from Random_search import random_route
+from Random_search_for_hc import random_route
 from Scorefromroute import scorefromroute
 from createnetwerk import createNetwerk
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
