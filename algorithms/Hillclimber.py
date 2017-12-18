@@ -2,29 +2,27 @@
 # https://github.com/jemmelot/Heuristieken.git
 
 import os,sys,inspect
-#currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-#parentdir = os.path.dirname(currentdir)
-#sys.path.insert(0,parentdir)
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0,parentdir)
+sys.path.append('../functions/')
+from Score import score
+sys.path.append('../classes/')
+from createnetwerk import createNetwerk
 import numpy as np
 import math
 from random import randint
 from random import random
 from Random_search import random_route
-from RailNL import main_array, stations, starting_stations, critical_stations
-sys.path.append('../functions/')
-from Score import score
 
-def hillclimber(max_evaluations):
+def hillclimber(array, stations, trains_amount, max_evaluations):
     """Uses hillclimber algorithm."""
-
-    #temp_connections = np.zeros((22, 22))
 
     def move_operator(initial_route, visited_connections):
         """This function handles the changes to be made to the routes."""
 
         temp_connections = visited_connections.copy()
-        for i in range(len(initial_route)):
-            route[i] = initial_route[i].copy()
+        route = initial_route.copy()
 
         # generate two random indices
         i = np.random.choice(len(route))
@@ -33,8 +31,8 @@ def hillclimber(max_evaluations):
         # find and replace a random station
         new_route = []
         index = stations.index(route[i][j - 1])
-        nonzero_count   = np.count_nonzero(main_array[index, :] > 0)
-        nonzero_indices = np.where(main_array[index, :] > 0)[0]
+        nonzero_count   = np.count_nonzero(array[index, :] > 0)
+        nonzero_indices = np.where(array[index, :] > 0)[0]
 
         # make sure a different station is chosen, if possible
         index_old = stations.index(route[i][j])
@@ -71,7 +69,7 @@ def hillclimber(max_evaluations):
             for l in range(1, j - 1):
                 index1 = stations.index(new_route[l])
                 index2 = stations.index(new_route[l + 1])
-                total_time += main_array[index1, index2]
+                total_time += array[index1, index2]
 
         # else, fill in backwards
         if rnd == 1:
@@ -97,7 +95,7 @@ def hillclimber(max_evaluations):
             for l in range(1, len(new_route) - 2):
                 index1 = stations.index(new_route[l])
                 index2 = stations.index(new_route[l + 1])
-                total_time += main_array[index1, index2]
+                total_time += array[index1, index2]
 
         # fill the rest of the new route at random
         route[i] = new_route
@@ -105,27 +103,24 @@ def hillclimber(max_evaluations):
         def fillroute(starting_station, total_time):
             """Uses random search and changed station as starting point to complete the new route."""
 
-            x = np.where(main_array[starting_station, :] > 0)
+            x = np.where(array[starting_station, :] > 0)
             r = np.random.choice(x[0])
 
-            if (total_time + main_array[starting_station][r]) > 120:
+            if (total_time + array[starting_station][r]) > 120:
                 route[i][0] = total_time
 
             else:
                 route[i].append(stations[r])
-                total_time += main_array[starting_station][r]
+                total_time += array[starting_station][r]
                 temp_connections[starting_station][r] += 1
                 temp_connections[r][starting_station] += 1
                 fillroute(r, total_time)
 
 
         fillroute(starting_station, total_time)
-        #print("first:", visited_connections)
+        final_route = route.copy()
         visited_connections = temp_connections.copy()
-        #print("second:", visited_connections)
-        for i in range(len(route)):
-            initial_route[i] = route[i].copy()
-        return initial_route, visited_connections
+        return final_route, visited_connections
 
 
     def probability(prev_score, next_score, temperature):
@@ -141,37 +136,37 @@ def hillclimber(max_evaluations):
         """Uses simulated annealing to avoid local maxima."""
 
         # calculate score of the randomly generated routes and arbitrarily set the temperature
-        current_score = score(connections, solution)
+        current_score = 0
         T = 1.0
-        alpha = 0.999
+        alpha = 0.99
         num_evaluations = 0
         annealing_iterations = 3
         while max_evaluations > num_evaluations:
             i = 1
             while i <= annealing_iterations:
+                current_connections = connections.copy()
+                current_solution = solution.copy()
+                current_score = score(current_connections, current_solution)
+
                 # calculate new solution and determine the score and probability
-                new_solution, new_connections = move_operator(solution, connections)
-                new_score = score(new_connections, new_solution)
+                new_route, new_connections = move_operator(current_solution, current_connections)
+                new_score = score(new_connections, new_route)
+
                 prob = probability(current_score, new_score, T)
                 if prob > random():
-                    solution = new_solution
-                    connections = new_connections
+                    solution = new_route.copy()
+                    connections = new_connections.copy()
                     current_score = new_score
                 i += 1
+
             T = T * alpha
             num_evaluations += 1
-            #csvwrite(current_score)
-            #for elem in solution:
-            #    print(elem)
-            #print(connections)
-            #print(stations)
-            #print("")
+            print(connections)
             print(num_evaluations, current_score)
-        return solution, current_score
+        #return solution, current_score
 
-    visited_connections, route = random_route(main_array, starting_stations, stations)
-    solution, current_score = anneal(route, visited_connections)
+    visited_connections, solution = random_route(trains_amount)
+    anneal(solution, visited_connections)
+    return solution, current_score
 
-    return current_score
-
-hillclimber(10000)
+#hillclimber(100)
