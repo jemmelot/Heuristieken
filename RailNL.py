@@ -7,11 +7,7 @@ import sys
 import os
 sys.path.append('./classes/')
 from createnetwerk import createNetwerk
-<<<<<<< HEAD
 from Scorefromroute import score_from_route
-=======
-from Scorefromroute import scorefromroute
->>>>>>> 937f0a62ca97729da0ef33cb840d807964cf549d
 sys.path.append('./functions/')
 from Histogram import histogram
 sys.path.append('./algorithms/')
