@@ -10,7 +10,7 @@ sys.path.append('../algorithms/')
 from ScoreVariables import score_variables
 import matplotlib.pyplot as plt
 
-class scorefromroute():
+class score_from_route():
 
     def __init__(self, route, connections, trainamount):
         self.route = route

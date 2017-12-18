@@ -7,8 +7,7 @@ import sys
 import os
 sys.path.append('./classes/')
 from createnetwerk import createNetwerk
-from ScoreVariables import score_variables
-from Scorefromroute import scorefromroute
+from Scorefromroute import score_from_route
 sys.path.append('./functions/')
 from Score import score
 from Histogram import histogram
@@ -26,78 +25,53 @@ def main():
     
 #    trainamount = int(input("Amount Trains [Int]: "))
 #    trials = int(input("Amount Trials [Int]: "))
-#    Usage2 = int(input("Holland/Nationaal [Holland = 0; Nationaal = 1]: "))
-#    Usage3 = int(input("Random [No = 0; Yes = 1]]: "))
-#    Usage4 = int(input("BreadFirst [No = 0; Yes = 1]: "))
-#    Usage5 = int(input("HillClimber [No = 0; Yes = 1]: "))
-#    Usage6 = int(input("Greedy [No = 0; Yes = 1]: "))
-#    Usage7 = int(input("Plot [No = 0; Yes = 1]: "))
+#    map = int(input("Holland/Nationaal [Holland = 0; Nationaal = 1]: "))
+#    random_search = int(input("Random [No = 0; Yes = 1]]: "))
+#    breadth_first = int(input("BreadFirst [No = 0; Yes = 1]: "))
+#    hillclimber = int(input("HillClimber [No = 0; Yes = 1]: "))
+#    greedy = int(input("Greedy [No = 0; Yes = 1]: "))
+#    visualisatie = int(input("Plot [No = 0; Yes = 1]: "))
 
     trainamount = 7
-    trials = 100
-    Usage2 = 0
-    Usage3 = 0
-    Usage4 = 0
-    Usage5 = 0
-    Usage6 = 1
-    Usage7 = 0
+    trials = 1
+    map = 0
+    use_random_search = 1
+    use_breadth_first = 0
+    use_hillclimber = 0
+    use_greedy = 0
+    use_visualisatie = 0
         
-    if Usage2 == 0:
+    if map == 0:
         x = createNetwerk('./csv/StationsHolland.csv', './csv/ConnectiesHolland.csv')
-    if Usage2 ==  1:
+    if map ==  1:
         x = createNetwerk('./csv/StationsNationaal.csv', './csv/ConnectiesNationaal.csv')
 
-    if Usage3 == 1:
-        for i in range(trials):
-            # random search
-            visited_connections, route = random_route(x.array, x.starting_stations, x.stations)
-            for row in route:
-                print(row)
+    if use_random_search:
+        print(x.connections)
+        # random search
+        random_search_route = random_route(x.array, x.starting_stations, x.stations, trainamount, trials)
+        for row in random_search_route:
+            print(row)
+        random_search_score_from_route = score_from_route(random_search_route, x.connections, trainamount)
+        print(random_search_score_from_route)
     
-    if Usage4 == 1:
+    if use_breadth_first:
         # breadth first
-        route, score = breadth_first_route(x.array, x.stations, x.critical, trainamount, trials)
-        for row in route:
+        breadth_first_route, breadth_first_score = breadth_first_route(x.array, x.starting_stations, x.stations, x.critical, trainamount, trials)
+        for row in breadth_first_route:
             print(row)
+        bread_first_score_from_route = score_from_route(route, x.connections, trainamount)
 
-    if Usage6 == 1:
+    if use_greedy:
         # greedy
-        route = greedy(x.connections, x.criticalconnections, x.critical, trainamount, trials)
-        for row in route:
+        greedy_route = greedy(x.connections, x.criticalconnections, x.critical, trainamount, trials)
+        for row in greedy_route:
             print(row)
-        greedyscore = scorefromroute(route, x.connections, trainamount)
-        print(greedyscore)
-#        histogram('Greedy','./csv/greedyalltrials.csv')
+        greedy_score_from_route = score_from_route(greedy_route, x.connections, trainamount)
+        print(greedy_score_from_route)
+        histogram('Greedy','./csv/greedyalltrials.csv')
 
-#    object = score_variables()
-#    # score function parameters
-#    p    = object.p(x.array, visited_connections, x.stations, x.critical)
-#    t   = object.t(visited_connections)
-#    min = object.min(route)
-# scorefunctie
-
-#
-#    print(connectioncheck1)
-#    connectioncheck2 = []
-#    for connection in x.connections:
-#    for check in connectioncheck1:
-#        print(check)
-#            print(check[0])
-#            print(check[1])
-#            if check[0] in connection:
-#                if check[1] in connection:
-#                    if connection not in connectioncheck2:
-#                        connectioncheck2.append([connection[0:2]])
-#            if check[0] == connection[1]:
-#                if check[1] == connection[0]:
-#                    if connection not in connectioncheck2:
-#                        connectioncheck2.append([connection[0:2]])
-#    print("")
-#    print(connectioncheck2)
-#    print("")
-#    print(x.connections)
-#
-    if Usage7 == 1:
+    if use_visualisatie:
         # create and print visualization
         visualization(x.longitude, x.latitude, x.stations, route, x.critical, x.array, 2000)
 
