@@ -10,7 +10,7 @@ import math
 from random import randint
 from random import random
 from Random_search_for_hc import random_route
-from Scorefromroute import scorefromroute
+from Scorefromroute import score_from_route
 from createnetwerk import createNetwerk
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -128,11 +128,11 @@ def hillclimber(main_array, stations, connections, trainamount, max_evaluations)
             i = 1
             while i <= annealing_iterations:
                 current_solution = solution.copy()
-                current_score = float(scorefromroute(current_solution, connections, trainamount))
+                current_score = float(score_from_route(current_solution, connections, trainamount))
 
                 # calculate new solution and determine the score and probability
                 new_route = move_operator(current_solution)
-                new_score = float(scorefromroute(new_route, connections, trainamount))
+                new_score = float(score_from_route(new_route, connections, trainamount))
 
                 # determine whether or not the new score should be saved based on simulated annealing
                 prob = probability(current_score, new_score, T)
