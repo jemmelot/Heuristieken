@@ -46,7 +46,7 @@ def main():
     
     if Usage4 == 1:
         # breadth first
-        route, all_time_highest_score = breadth_first_route(x.array, x.stations, x.critical, trainamount, trials)
+        route, score = breadth_first_route(x.array, x.stations, x.critical, trainamount, trials)
         for row in route:
             print(row)
 
