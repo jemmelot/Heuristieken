@@ -16,9 +16,9 @@ De gehele datastructuur wordt aangestuurd vanuit de mainfile (railnl.py). Deze f
 
 ## Authors
 
-* **Jesse Emmelot** - *Initial work* - [jemmelot](https://github.com/jemmelot)
-* **Siwa Sardjoemissier** - *Initial work* - [swcloud1](https://github.com/swcloud1)
-* **Bas Zwanenburg** - *Initial work* - [baszwanenburg](https://github.com/baszwanenburg)
+* **Jesse Emmelot** - [jemmelot](https://github.com/jemmelot)
+* **Siwa Sardjoemissier** - [swcloud1](https://github.com/swcloud1)
+* **Bas Zwanenburg** - [baszwanenburg](https://github.com/baszwanenburg)
 
 See also the list of [contributors](https://github.com/jemmelot/Heuristieken/graphs/contributors) who participated in this project.
 
