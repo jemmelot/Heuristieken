@@ -7,10 +7,8 @@ import sys
 import os
 sys.path.append('./classes/')
 from createnetwerk import createNetwerk
-from ScoreVariables import score_variables
 from Scorefromroute import scorefromroute
 sys.path.append('./functions/')
-from Score import score
 from Histogram import histogram
 sys.path.append('./algorithms/')
 from Breadth_first import breadth_first_route
@@ -37,10 +35,10 @@ def main():
     trials = 100
     Usage2 = 0
     Usage3 = 0
-    Usage4 = 0
+    Usage4 = 1
     Usage5 = 0
-    Usage6 = 1
-    Usage7 = 0
+    Usage6 = 0
+    Usage7 = 1
         
     if Usage2 == 0:
         x = createNetwerk('./csv/StationsHolland.csv', './csv/ConnectiesHolland.csv')
@@ -56,7 +54,7 @@ def main():
     
     if Usage4 == 1:
         # breadth first
-        route, score = breadth_first_route(x.array, x.stations, x.critical, trainamount, trials)
+        route, breadthfirstscore = breadth_first_route(x.array, x.stations, x.critical, trainamount, trials)
         for row in route:
             print(row)
 

@@ -10,8 +10,6 @@ import os
 import copy
 sys.path.append('../classes/')
 from createnetwerk import createNetwerk
-from ScoreVariables import score_variables
-
 
 def greedy(connections, criticalconnections, critical, trainamount, trials):
 
