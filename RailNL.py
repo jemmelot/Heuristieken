@@ -58,11 +58,10 @@ def main():
     if use_breadth_first:
         # breadth first
         breadth_first_route, breadth_first_score = breadth_first_route(x.array, x.starting_stations, x.stations, x.critical, trainamount, trials)
-        for row in breadth_first_route:
-        route, breadthfirstscore = breadth_first_route(x.array, x.stations, x.critical, trainamount, trials)
         for row in route:
             print(row)
         bread_first_score_from_route = score_from_route(route, x.connections, trainamount)
+        print(bread_first_score_from_route)
 
     if use_greedy:
         # greedy
