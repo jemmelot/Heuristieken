@@ -1,12 +1,8 @@
-
 import numpy as np
 import csv
-from ScoreVariables import score_variables
-from Score           import score
+from ScoreIntegrated import score_integrated
 
-def breadth_first_route(main_array, starting_stations, stations, critical_stations, trains, iterations):
-	object = score_variables()
-		
+def breadth_first_route(main_array, stations, critical_stations, trains, iterations):
 	# the calculated routes will be stored in this variable
 	explored = [[] for i in range(len(stations))]
 
@@ -122,13 +118,9 @@ def breadth_first_route(main_array, starting_stations, stations, critical_statio
 									total_time += time
 						
 						route[m].insert(0, total_time)
-						
-						# score function parameters
-						percentage, missed	= object.p(main_array, visited_connections, stations, critical_stations)
-						min = object.min(route, (m+1))
-
-						final_score = score(percentage, trains, min)
-											
+												
+						final_score = float(score_integrated(main_array, visited_connections, stations, route, critical_stations,(m+1)))
+												
 						if final_score > highest_score:
 							highest_score = final_score
 							highest_route[m] = route[m].copy()
@@ -152,8 +144,5 @@ def breadth_first_route(main_array, starting_stations, stations, critical_statio
 		print(row)
 	
 	print(all_time_highest_visited)
-	all_time_highest_p, missed = object.p(main_array, all_time_highest_visited, stations, critical_stations)
-	
-	print(all_time_highest_p)
-			
+				
 	return all_time_highest_route, all_time_highest_score

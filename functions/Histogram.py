@@ -7,7 +7,6 @@ import sys
 sys.path.append('../classes/')
 sys.path.append('../functions/')
 sys.path.append('../algorithms/')
-from ScoreVariables import score_variables
 import matplotlib.pyplot as plt
 
 def histogram(title, csvfile):
