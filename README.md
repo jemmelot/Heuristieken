@@ -14,6 +14,8 @@ De repository is opgedeeld in een aantal mapjes. 'Algorithms' bevat uiteindelijk
 ## Werking van het programma
 De gehele datastructuur wordt aangestuurd vanuit de mainfile (railnl.py). Deze file roept alle externe bestanden aan die nodig zijn om het programma te laten werken en uiteindelijk het resultaat weer te kunnnen geven. Om het programma uit te voeren wordt de mainfile dus opgestart in de terminal. Hierop krijgt de gebruiker enkele input prompts, waarin deze kan aangeven hoeveel treinen/trajecten er moeten zijn, hoeveel iteraties er gedaan moeten worden, welke algoritmes gebruikt moeten worden en of er een visualisatie aan het einde moet worden gemaakt. Wanneer alle iteraties voltooid zijn en de algoritmes hun resultaten hebben geleverd, worden hun bepaalde lijnvoeringen met bijbehorende scores in de terminal weergegeven. Het verloop van de hoogste score wordt tevens per algoritme bijgehouden in csv bestanden om achteraf te kunnen bestuderen.
 
+Handmatige aanpassingen: Wanneer alle stations als kritiek beschouwd dienen te worden, kan in het bestand 'createnetwerk.py' op regel 33 de condition "if "Kritiek" in row" worden weggehaald, zodat alle stations in de lijst van kritieke stations komen.
+
 ## Authors
 
 * **Jesse Emmelot** - [jemmelot](https://github.com/jemmelot)
