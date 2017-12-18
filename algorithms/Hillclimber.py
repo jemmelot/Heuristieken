@@ -113,23 +113,21 @@ def hillclimber(main_array, stations, connections, trainamount, max_evaluations)
         if next_score > prev_score:
             return 1.0
         else:
-            return math.exp(-abs(next_score - prev_score) / temperature)
+            return math.exp(-abs(prev_score - next_score) / temperature)
 
     def anneal(solution):
         """Uses simulated annealing to avoid local maxima."""
 
         # calculate score of the randomly generated routes and arbitrarily set the temperature
-        current_score = 0
+        current_solution = solution
+        current_score = float(score_from_route(current_solution, connections, trainamount))
         T = 1.0
-        alpha = 0.9  # the optimal value for apha has been approached by trial and error
+        alpha = 0.99  # the optimal value for apha has been approached by trial and error
         num_evaluations = 0
-        annealing_iterations = 3
+        annealing_iterations = 5
         while max_evaluations > num_evaluations:
             i = 1
             while i <= annealing_iterations:
-                current_solution = solution.copy()
-                current_score = float(score_from_route(current_solution, connections, trainamount))
-
                 # calculate new solution and determine the score and probability
                 new_route = move_operator(current_solution)
                 new_score = float(score_from_route(new_route, connections, trainamount))
@@ -137,7 +135,7 @@ def hillclimber(main_array, stations, connections, trainamount, max_evaluations)
                 # determine whether or not the new score should be saved based on simulated annealing
                 prob = probability(current_score, new_score, T)
                 if prob > random():
-                    solution = new_route.copy()
+                    current_solution = new_route
                     current_score = new_score
                 i += 1
             # reduce the temperature with every iteration
@@ -149,7 +147,9 @@ def hillclimber(main_array, stations, connections, trainamount, max_evaluations)
                 wr = csv.writer(myfile, sys.stdout, lineterminator='\n')
                 wr.writerow([current_score])
             print(num_evaluations, current_score)
+            print("")
+        return current_solution, current_score
 
     rng_route = random_route(main_array, stations, trainamount)
-    anneal(rng_route)
-    return solution, current_score
+    current_solution, current_score = anneal(rng_route)
+    return current_solution, current_score
