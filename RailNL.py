@@ -31,12 +31,12 @@ def main():
 #    greedy = int(input("Greedy [No = 0; Yes = 1]: "))
 #    visualisatie = int(input("Plot [No = 0; Yes = 1]: "))
 
-    trainamount = 4
-    trials = 1000
+    trainamount = 7
+    trials = 100
     map = 0
     use_random_search = 0
-    use_breadth_first = 0
-    use_hillclimber = 1
+    use_breadth_first = 1
+    use_hillclimber = 0
     use_greedy = 0
     use_visualisatie = 1
 
@@ -62,16 +62,15 @@ def main():
 
     if use_breadth_first:
         # breadth first
-        breadth_first_best_route, breadth_first_score = breadth_first_route(x.array, x.stations, x.critical, trainamount, trials, time_limit)
-        for row in breadth_first_best_route:
+        bf_route, breadth_first_score = breadth_first_route(x.array, x.stations, x.critical, trainamount, trials, time_limit)
+        for row in bf_route:
             print(row)
-        #bread_first_score_from_route = score_from_route(breadth_first_best_route, x.connections, trainamount)
-        #print(bread_first_score_from_route)
-        print(breadth_first_score)
+        bread_first_score_from_route = float(score_from_route(bf_route, x.connections, trainamount))
+        print(bread_first_score_from_route)        
         if use_visualisatie:
             histogram('BreadthFirst','./csv/breadth_first_all_scores.csv')
             # create and print visualization
-            visualization(x.longitude, x.latitude, x.stations, breadth_first_best_route, x.critical, x.array, breadth_first_score)
+            visualization(x.longitude, x.latitude, x.stations, bf_route, x.critical, x.array, bread_first_score_from_route)
                     
     if use_hillclimber:
         # hillclimber

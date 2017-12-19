@@ -11,13 +11,14 @@ import matplotlib.pyplot as plt
 
 class score_integrated():
 
-	def __init__(self, main_array, visited_connections, stations, route, critical_stations, trains):
+	def __init__(self, main_array, visited_connections, stations, route, critical_stations, trains, iteration):
 		self.main_array = main_array
 		self.visited_connections = visited_connections
 		self.stations = stations
 		self.route = route
 		self.critical_stations = critical_stations
 		self.trains = trains
+		self.iteration = iteration
 		self.t = self.t()
 		self.min = self.min()
 		self.p = self.p()
@@ -33,7 +34,7 @@ class score_integrated():
 	def min(self):
 		min = 0
 		
-		for i in range(self.trains):
+		for i in range(self.iteration):
 			min += self.route[i][0]
 		
 		return min

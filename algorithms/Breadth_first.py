@@ -17,6 +17,9 @@ def breadth_first_route(main_array, stations, critical_stations, trains, iterati
 	type: function
 
 	returns: best scoring set of routes after all iterations, also the score itself
+	
+	note: this algorithm works best with a maximum of 4 trains as input, since it will quickly find a good route,
+	and more trains might sometimes cause it to mislink scores to routes.
 	'''	
 	# store the 'tree' of every station in a list
 	explored = [[] for i in range(len(stations))]
@@ -160,8 +163,8 @@ def breadth_first_route(main_array, stations, critical_stations, trains, iterati
 					the percentage of critical stations, whereas the others use modified versions of the list containing all direct connections.
 					Both methods of calculating the score work as intented and produce the same output.
 					'''
-					final_score = float(score_integrated(main_array, visited_connections, stations, route, critical_stations,(m+1)))
-																
+					final_score = float(score_integrated(main_array, visited_connections, stations, route, critical_stations, trains, (m+1)))
+					
 					# if a combination of routes gets a new highest score, set it as the current best scoring combination for following iterations
 					if final_score > highest_score:
 						highest_score = final_score
